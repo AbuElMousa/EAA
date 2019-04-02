@@ -18,7 +18,7 @@ int main()
 	int rc;
 	char *sql;
 
-	rc = sqlite3_open("test.db", &db);
+	rc = sqlite3_open("adb.sqlite3", &db);
 
 	if(rc)
 	{
