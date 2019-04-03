@@ -9,7 +9,18 @@ class ConfigurationView(APIView):
     """
     Display the current device configuration details
     """
-    def get(self, request, format=None):
-        #serializer = ConfigurationSerializer(request)
-        import random
-        return Response({"mode": random.random()})
+    def get(self, pk):
+        try:
+            #config = Configuration.objects.all()
+            config = Configuration.objects.get(['config_id', 1])
+            serializer = ConfigurationSerializer(config, many=False)
+            return Response(serializer.data)
+        except Configuration.DoesNotExist:
+            raise Http404
+
+    def post(self, request, format=None):
+        serializer = ConfigurationSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
