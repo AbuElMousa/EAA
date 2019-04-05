@@ -19,7 +19,8 @@ class SoundView(APIView):
 
 class SoundsView(APIView):
     """
-    Display the entire list of sounds
+    get:
+        do something
     """
     def get(self, pk):
         try:

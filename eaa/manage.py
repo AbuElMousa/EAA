@@ -2,6 +2,9 @@
 import os
 import sys
 
+# add libthirdear
+sys.path.append('./libthirdear')
+
 if __name__ == '__main__':
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'eaa.settings')
     try:
