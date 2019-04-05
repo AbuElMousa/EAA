@@ -11,16 +11,15 @@ class ConfigurationView(APIView):
     """
     def get(self, pk):
         try:
-            #config = Configuration.objects.all()
             config = Configuration.objects.get(['config_id', 1])
             serializer = ConfigurationSerializer(config, many=False)
             return Response(serializer.data)
         except Configuration.DoesNotExist:
-            raise Http404
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
     def post(self, request, format=None):
         serializer = ConfigurationSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
