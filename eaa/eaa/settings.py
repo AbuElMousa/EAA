@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'configuration.apps.ConfigurationConfig',
     'sounds.apps.SoundsConfig',
+    'rest_framework_swagger',
 ]
 
 MIDDLEWARE = [
