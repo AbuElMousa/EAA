@@ -1,0 +1,12 @@
+[Unit]
+Description=Sound Source Localizer
+After=multi-user.target
+Conflicts=getty@tty1.service
+
+[Service]
+User=debian
+Type=simple
+ExecStart=/bin/bash /home/debian/EAA/systemd/localizer.sh
+
+[Install]
+WantedBy=multi-user.target

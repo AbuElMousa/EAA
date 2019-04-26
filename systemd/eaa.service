@@ -1,0 +1,12 @@
+[Unit]
+Description=Embedded Acoustics API
+After=multi-user.target
+Conflicts=getty@tty1.service
+
+[Service]
+User=debian
+Type=simple
+ExecStart=/bin/bash /home/debian/EAA/systemd/eaa.sh
+
+[Install]
+WantedBy=multi-user.target
