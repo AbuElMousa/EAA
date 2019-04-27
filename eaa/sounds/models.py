@@ -7,4 +7,4 @@ class Sound(models.Model):
     direction = models.IntegerField(default=-1)
 
     class Meta:
-        ordering = ('time',)
+        ordering = ('time','frequency','amplitude','direction')

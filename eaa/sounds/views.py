@@ -11,7 +11,7 @@ class SoundView(APIView):
     """
     def get(self, pk):
         try:
-            sound = Sound.objects.get(['time', 0])
+            sound = Sound.objects.latest('id')
             serializer = SoundSerializer(sound, many=False)
             return Response(serializer.data)
         except Sound.DoesNotExist:
