@@ -29,3 +29,17 @@ class SoundsView(APIView):
             return Response(serializer.data)
         except Sound.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
+
+class DirectionView(APIView):
+    """
+    Display the most recent direction
+    """
+    def get(self, pk):
+        try:
+            sound = Sound.objects.latest('id')
+            serializer = SoundSerializer(sound, many=False)
+            data = serializer.data
+            resp = {'data': data['direction']}
+            return Response(resp)
+        except Sound.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
