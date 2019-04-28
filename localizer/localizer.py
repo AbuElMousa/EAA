@@ -1,6 +1,8 @@
 import numpy as np
 from numpy.fft import fft, fftfreq
 from libpruio import *
+import sqlite3
+import time
 
 import datetime
 
@@ -9,6 +11,10 @@ import datetime
 #12k is 83333
 #24k is 41666 GOOD
 #48k is 20833
+
+index = 0
+conn = sqlite3.connect("../eaa/db.sqlite3")
+c = conn.cursor()
 
 NUM_SAMPLES = 6000
 
@@ -73,5 +79,11 @@ while True:
     freq_3 = abs(freq_3)
 
     print(freq_0, freq_1, freq_2, freq_3)
+    c.execute('''INSERT INTO sounds_sound VALUES ''' + str((index, freq_0, freq_1, freq_2, freq_3)))
+    conn.commit()
+    index = index + 1
 
 pruio_destroy(io)
+
+
+conn.close()
