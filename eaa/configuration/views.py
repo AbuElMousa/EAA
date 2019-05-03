@@ -11,7 +11,7 @@ class ConfigurationView(APIView):
     """
     def get(self, pk):
         try:
-            config = Configuration.objects.get(['config_id', 1])
+            config = Configuration.objects.get(['configId', 1])
             serializer = ConfigurationSerializer(config, many=False)
             return Response(serializer.data)
         except Configuration.DoesNotExist:
