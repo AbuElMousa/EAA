@@ -51,8 +51,8 @@ while True:
     CHANNEL_2_FREQS = fftfreq(len(CHANNEL_2_FFT))
     CHANNEL_3_FREQS = fftfreq(len(CHANNEL_3_FFT))
 
-    for i in range(NUM_SAMPLES):
-        print(CHANNEL_1[i])
+    #for i in range(NUM_SAMPLES):
+    #    print(CHANNEL_1[i])
 
     idx_0 = np.argmax(np.abs(CHANNEL_0_FFT))
     idx_1 = np.argmax(np.abs(CHANNEL_1_FFT))
@@ -70,8 +70,7 @@ while True:
     freq_2 = abs(freq_2 * NUM_SAMPLES)
     freq_3 = abs(freq_3 * NUM_SAMPLES)
 
-    exit()
-
     #print(np.mean(CHANNEL_0), np.mean(CHANNEL_1), np.mean(CHANNEL_2), np.mean(CHANNEL_3))
+    print(freq_1)
 
 pruio_destroy(io)

@@ -42,6 +42,7 @@ while True:
     idx_1 = np.argmax(np.abs(CHANNEL_1_FFT))
 
     freq_1 = CHANNEL_1_FREQS[idx_1]
+    freq_1 = abs(freq_1)
 
     print(freq_1)
 
