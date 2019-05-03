@@ -66,9 +66,7 @@ int init_configuration(sqlite3 *db, char *sql, int *rc, char *zErrMsg)
 	       "ID INT PRIMARY KEY NOT NULL," \
 	       "TARGET_FREQUENCIES TEXT NOT NULL," \
 	       "ERROR_THRESHOLD INT NOT NULL," \
-	       "ANGLE_OFFSET INT NOT NULL," \
-	       "HISTORY INT NOT NULL," \
-	       "ACTIVE_MICS TEXT NOT NULL);";
+	       "ISDARKMODE INT NOT NULL);,";
 
 	*rc = sqlite3_exec(db, sql, callback, 0, &zErrMsg);
 }
