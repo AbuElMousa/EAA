@@ -1,16 +1,15 @@
 import unittest
 
-from jlib import build_TOA_matrix
-from jlib import compute_direction
-from jlib import x_correlation
-
-from siglib import get_samples
+from siglib import sine
+from siglib import get_signals
+from siglib import calculate_mic_source_radii
+from siglib import generate_noise
+from siglib import generate_decay
+from siglib import generate_delay
 
 import numpy as np
 
-print(get_samples())
-exit()
-
+'''
 mics = [
         {'id': 0, 'position': [1, 1], 'samples': sine()},
         {'id': 1, 'position': [1, -1], 'samples': sine()},
@@ -24,30 +23,22 @@ sampling = {
         'number_of_samples': 1000,
         'c': 330
         }
+'''
 
 # ACTUAL TESTING
-
-#mat = build_TOA_matrix(mics, time, sampling)
-#print(mat)
-direction = compute_direction([[0, .004, .004, .007]], mics, sampling)
-print(direction)
 
 '''
 get the
 '''
 
 #print(mics)
-class TOATestCase(unittest.TestCase):
-    def setUp(self):
-        self.something = 1
-
-    def tearDown(self):
-        pass
+class SiglibTestCase(unittest.TestCase):
+    pass
 
 
-class TOATest(TOATestCase):
+class TestGetSignals(SiglibTestCase):
     def runTest(self):
-        assert 1 == 1
+        print(get_signals())
 
 #class CorrelateTestCase()
 

@@ -10,7 +10,7 @@ import datetime
 #24k is 41666 GOOD
 #48k is 20833
 
-NUM_SAMPLES = 1000
+NUM_SAMPLES = 1024
 
 CHANNEL_0 = np.zeros(NUM_SAMPLES)
 CHANNEL_1 = np.zeros(NUM_SAMPLES)

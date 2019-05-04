@@ -130,6 +130,6 @@ def x_correlation(mic_data, time_data, sampling_data, TOA):
     t_correlate_matrix = np.matrix(matlist1)
     sub_s = np.subtract(x_correlate_matrix, t_correlate_matrix)
     min_row = sub_s.min(0)
-    sub_s = np.subtract(sub_s.(0), float(min_row.min()))
+    sub_s = np.subtract(sub_s(0), float(min_row.min()))
     sub_s = np.divide(sub_s, (number_of_samples / (end - start)))
     return sub_s
