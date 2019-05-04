@@ -7,5 +7,8 @@ schema_view = get_swagger_view(title='SWAG')
 urlpatterns = [
     url(r'^$', schema_view),
     path('', include('configuration.urls')),
+    #path('', include('voltages.urls')),
+    #path('', include('peaks.urls')),
+    #path('', include('process.urls')),
     path('', include('sounds.urls')),
 ]

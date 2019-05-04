@@ -30,14 +30,7 @@ def configure_daemon(params: dict):
     pass
 
 
-def get_voltages():
-    """
-
-    """
-    pass
-
-
-def get_peaks():
+def get_signals():
     """
 
     """
