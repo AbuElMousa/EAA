@@ -61,8 +61,44 @@ def x_correlation(mic_data, time_data, sampling_data):
     input_signals = [mic['samples'] for mic in mic_data]
     matlist = []
     matlist1 = []
-    for current_mic in 
+    for current_mic in a
+    
 
+
+def compute_direction(minimum_time_row, mic_data, sampling_data):
+    """Calculates the direction
+    """
+    c = sampling_data['c']
+    mics = [mic['id'] for mic in mic_data]
+
+    min_position = np.argmin(minimum_time_row)
+    initial_position = mic[min_position]['position']
+    delta_positions = [] #what does this mean
+
+    for mic in mic_data:
+        mic_position = mic['position']
+        if mic_position != initial_position:
+            delta = np.subtract(mic_position, initial_position)
+            delta_positions.append(delta)
+
+    delta_positions_matrix = np.matrix(delta_positions) # make sure this works properly
+    pseudo_inverse = np.linalg.pinv(delta_positions_matrix)
+    delta_time_matrix = np.delete(minimum_time_row, min_position)
+    delta_time_matrix = np.multiply(delta_time_matrix, c)
+    delta_time_matrix = np.transpose(delta_time_matrix)
+    uv = np.dot(pseudo_inverse, delta_time_matrix)
+    theta = np.argtan2(uv[1], uv[0]) # make this nicer
+    theta = np.rad2deg(theta)
+
+    if theta < 0:
+        theta = theta + 180
+    else if theta >= 0:
+        theta = theta - 180
+
+    direction = theta.min()
+
+    return direction
+    
 
 # TEST FUNCTIONS
 def sine():
@@ -90,8 +126,9 @@ sampling = {
 
 # ACTUAL TESTING
 
-mat = build_TOA_matrix(mics, time, sampling)
-print(mat)
+#mat = build_TOA_matrix(mics, time, sampling)
+#print(mat)
+direction = compute_direction([1, 2, 3, 4], mics)
 
 
 #print(mics)
