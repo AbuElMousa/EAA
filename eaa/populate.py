@@ -9,7 +9,7 @@ tables = c.fetchall()
 print(tables)
 '''
 
-c.execute("INSERT INTO configuration_configuration VALUES (1, 1, 'blah', 100, 0, 0, 'blah')")
+c.execute("INSERT INTO configuration_configuration VALUES (1, 'blah', 100, 0)")
 
 conn.commit()
 conn.close()

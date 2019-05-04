@@ -14,6 +14,7 @@ import datetime
 
 index = 0
 conn = sqlite3.connect("/home/debian/EAA/eaa/db.sqlite3")
+#conn = sqlite3.connect("../eaa/db.sqlite3")
 c = conn.cursor()
 
 NUM_SAMPLES = 6000
