@@ -5,5 +5,4 @@ from sounds import views
 urlpatterns = [
         path('sounds/', views.SoundsView.as_view()),
         path('sound/', views.SoundView.as_view()),
-        path('direction/', views.DirectionView.as_view())
 ]
