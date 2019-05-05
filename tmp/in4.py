@@ -72,6 +72,8 @@ while True:
     freq_2 = abs(freq_2)
     freq_3 = abs(freq_3)
 
-    print(round(freq_0), round(freq_1), round(freq_2), round(freq_3))
+    #print(round(freq_0), round(freq_1), round(freq_2), round(freq_3))
+    freqs = [str(freq_0), str(freq_1), str(freq_2), str(freq_3)]
+    print(', '.join(freqs))
 
 pruio_destroy(io)

@@ -7,7 +7,7 @@ from configuration import mic_configuration, time_configuration, sampling_config
 import datetime
 
 NUM_SAMPLES = 1024
-FREQUENCY_RANGE = range(390, 410)
+FREQUENCY_RANGE = range(0, 3000)
 TOA = build_TOA_matrix(mic_configuration, time_configuration, sampling_configuration)
 print(TOA)
 
@@ -15,6 +15,11 @@ CHANNEL_0 = np.zeros(NUM_SAMPLES)
 CHANNEL_1 = np.zeros(NUM_SAMPLES)
 CHANNEL_2 = np.zeros(NUM_SAMPLES)
 CHANNEL_3 = np.zeros(NUM_SAMPLES)
+
+mic_configuration[0]['samples'] = CHANNEL_0
+mic_configuration[1]['samples'] = CHANNEL_1
+mic_configuration[2]['samples'] = CHANNEL_2
+mic_configuration[3]['samples'] = CHANNEL_3
 
 CHANNEL_0_FFT = np.zeros(NUM_SAMPLES)
 CHANNEL_1_FFT = np.zeros(NUM_SAMPLES)
@@ -71,7 +76,11 @@ while True:
     freq_3 = abs(freq_3)
 
     for freq in [freq_0, freq_1, freq_2, freq_3]:
-        if freq in FREQUENCY_RANGE:
-            pass
+        print(freq)
+        if int(freq) in FREQUENCY_RANGE:
+            minimum_time_row = x_correlation(mic_configuration, time_configuration, sampling_configuration, TOA)
+            direction = compute_direction(minimum_time_row, mic_configuration, sampling_configuration)
+            print(direction)
+            break
 
 pruio_destroy(io)

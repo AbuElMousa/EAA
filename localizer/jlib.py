@@ -28,12 +28,12 @@ def build_TOA_matrix(mic_data, time_data, sampling_data):
     c = sampling_data['c']
 
     TOA = []
-    for current_mic in mics:
+    for current_mic in mic_data:
 
         current_mic_position = current_mic['position']
         current_mic_toa = []
 
-        for alt_mic in mics:
+        for alt_mic in mic_data:
 
             alt_mic_position = alt_mic['position']
 
@@ -45,7 +45,7 @@ def build_TOA_matrix(mic_data, time_data, sampling_data):
 
         TOA.append(current_mic_toa)
 
-    return TOA
+    return np.matrix(TOA)
 
 
 def compute_direction(minimum_time_row, mic_data, sampling_data):
@@ -71,6 +71,8 @@ def compute_direction(minimum_time_row, mic_data, sampling_data):
     delta_time_matrix = [np.delete(minimum_time_row, min_position)] #why
     delta_time_matrix = np.multiply(delta_time_matrix, c)
     delta_time_matrix = np.transpose(delta_time_matrix)
+    print(pseudo_inverse)
+    print(delta_time_matrix)
     uv = np.dot(pseudo_inverse, delta_time_matrix)
     theta = np.arctan2(uv[1], uv[0]) # make this nicer
     theta = np.rad2deg(theta)
@@ -109,8 +111,8 @@ def x_correlation(mic_data, time_data, sampling_data, TOA):
         tmp1 = []
         for j in range(num_mics):
             mean_int = 10
-            mic_i_convolve = input_np.convolve(input_signals[i], np.ones((mean_int,))/mean_int, mode='valid')
-            mic_j_convolve = input_np.convolve(input_signals[j], np.ones((mean_int,))/mean_int, mode='valid')
+            mic_i_convolve = np.convolve(input_signals[i], np.ones((mean_int,))/mean_int, mode='valid')
+            mic_j_convolve = np.convolve(input_signals[j], np.ones((mean_int,))/mean_int, mode='valid')
             x_correlate = correlate(mic_i_convolve, mic_j_convolve, mode='full')
             x_correlate_length = len(x_correlate)
             x_correlate_envelope = np.abs(abs(hilbert(x_correlate)))
@@ -124,12 +126,12 @@ def x_correlation(mic_data, time_data, sampling_data, TOA):
             p = bisect.bisect(t_correlate, TOA.item(i, j))
             tmp1.append(p)
             tmp.append(x_correlate_max_x_position)
-        matlist.append(templist)
-        matlist1.append(templist1)
+        matlist.append(tmp)
+        matlist1.append(tmp1)
     x_correlate_matrix = np.matrix(matlist)
     t_correlate_matrix = np.matrix(matlist1)
     sub_s = np.subtract(x_correlate_matrix, t_correlate_matrix)
     min_row = sub_s.min(0)
-    sub_s = np.subtract(sub_s(0), float(min_row.min()))
+    sub_s = np.subtract(sub_s.min(0), float(min_row.min()))
     sub_s = np.divide(sub_s, (number_of_samples / (end - start)))
     return sub_s

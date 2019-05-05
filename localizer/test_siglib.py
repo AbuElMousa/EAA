@@ -40,5 +40,12 @@ class TestGetSignals(SiglibTestCase):
     def runTest(self):
         print(get_signals())
 
-#class CorrelateTestCase()
 
+class TestWriteSignals(SiglibTestCase):
+    def runTest(self):
+        signals = get_signals()
+        f = open('TestWriteSignals', 'w+')
+        for i in range(len(signals[0])):
+            entry = [str(signals[0][i]), str(signals[1][i]), str(signals[2][i]), str(signals[3][i])]
+            f.write(','.join(entry) + '\n')
+        f.close()
