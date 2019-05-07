@@ -4,18 +4,21 @@ from jlib import build_TOA_matrix
 from jlib import compute_direction
 from jlib import x_correlation
 
-from siglib import get_samples
+from siglib import get_signals
 
 import numpy as np
 
-print(get_samples())
-exit()
+###############################################################################
+################################## FUNCTIONS ##################################
+###############################################################################
+
+signal = get_signals()
 
 mics = [
-        {'id': 0, 'position': [1, 1], 'samples': sine()},
-        {'id': 1, 'position': [1, -1], 'samples': sine()},
-        {'id': 2, 'position': [-1, 1], 'samples': sine()},
-        {'id': 3, 'position': [-1, -1], 'samples': sine()}
+        {'id': 0, 'position': [1, 1], 'samples': signal[0]},
+        {'id': 1, 'position': [1, -1], 'samples': signal[1]},
+        {'id': 2, 'position': [-1, 1], 'samples': signal[2]},
+        {'id': 3, 'position': [-1, -1], 'samples': signal[3]}
 ]
 
 time = {'start': 0, 'end': 1}
@@ -25,29 +28,21 @@ sampling = {
         'c': 330
         }
 
-# ACTUAL TESTING
-
-#mat = build_TOA_matrix(mics, time, sampling)
-#print(mat)
-direction = compute_direction([[0, .004, .004, .007]], mics, sampling)
-print(direction)
-
-'''
-get the
-'''
-
-#print(mics)
-class TOATestCase(unittest.TestCase):
-    def setUp(self):
-        self.something = 1
-
-    def tearDown(self):
-        pass
+###############################################################################
+#################################### TESTS ####################################
+###############################################################################
 
 
-class TOATest(TOATestCase):
+class EstimationTest(unittest.TestCase):
+    pass
+
+
+class EstimateBlah(EstimationTest):
     def runTest(self):
-        assert 1 == 1
-
-#class CorrelateTestCase()
-
+        mic_data = mics
+        time_data = time
+        sampling_data = sampling
+        TOA = build_TOA_matrix(mic_data, time_data, sampling_data)
+        minimum_time_row = x_correlation(mic_data, time_data, sampling_data, TOA)
+        direction = compute_direction(minimum_time_row, mic_data, sampling_data)       
+        print(direction)

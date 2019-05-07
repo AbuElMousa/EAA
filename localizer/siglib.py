@@ -6,14 +6,7 @@ from scipy.spatial import distance
 DEFAULT_MIC_POSITIONS = [[1, 1], [1, -1], [-1, 1], [-1, -1]]
 
 
-def sine(frequency, phase, samples, start, end, noise):
-    time = np.linspace(start, end, samples)
-    signal = np.sin(2 * np.pi * frequency * time + phase)
-    noise = generate_noise(samples)
-    return signal + noise
-
-
-def get_signals(mic_positions = DEFAULT_MIC_POSITIONS, source_position=[10, 10], frequencies=[440], samples=1024, c=330, start=0, end=0, noise=1):
+def get_signals(mic_positions = DEFAULT_MIC_POSITIONS, source_position=[6, 10], frequencies=[440], samples=1024, c=330, start=0, end=1, noise=10):
     """
     """
     num_mics = len(mic_positions)
@@ -29,9 +22,15 @@ def get_signals(mic_positions = DEFAULT_MIC_POSITIONS, source_position=[10, 10],
             signal += sine(freq, phase, samples, start, end, noise)
             noise = noise + generate_noise(samples)
             signal = decays[i] * signal
-            signals.append(signal)
+        signals.append(signal)
     return signals
-            
+
+
+def sine(frequency, phase, samples, start, end, noise):
+    time = np.linspace(start, end, samples)
+    signal = np.sin(2 * np.pi * frequency * time + phase)
+    noise = generate_noise(samples)
+    return signal + noise
     
 
 def calculate_mic_source_radii(mic_positions, source_position):

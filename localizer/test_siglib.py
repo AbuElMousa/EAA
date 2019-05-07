@@ -1,5 +1,7 @@
 import unittest
 
+import matplotlib.pyplot as plt
+
 from siglib import sine
 from siglib import get_signals
 from siglib import calculate_mic_source_radii
@@ -9,12 +11,11 @@ from siglib import generate_delay
 
 import numpy as np
 
-'''
 mics = [
-        {'id': 0, 'position': [1, 1], 'samples': sine()},
-        {'id': 1, 'position': [1, -1], 'samples': sine()},
-        {'id': 2, 'position': [-1, 1], 'samples': sine()},
-        {'id': 3, 'position': [-1, -1], 'samples': sine()}
+        {'id': 0, 'position': [1, 1], 'samples': None},
+        {'id': 1, 'position': [1, -1], 'samples': None},
+        {'id': 2, 'position': [-1, 1], 'samples': None},
+        {'id': 3, 'position': [-1, -1], 'samples': None}
 ]
 
 time = {'start': 0, 'end': 1}
@@ -22,30 +23,16 @@ time = {'start': 0, 'end': 1}
 sampling = {
         'number_of_samples': 1000,
         'c': 330
-        }
-'''
+        }        
 
-# ACTUAL TESTING
 
-'''
-get the
-'''
-
-#print(mics)
 class SiglibTestCase(unittest.TestCase):
     pass
 
 
-class TestGetSignals(SiglibTestCase):
+class TestPlotSignals(SiglibTestCase):
     def runTest(self):
-        print(get_signals())
-
-
-class TestWriteSignals(SiglibTestCase):
-    def runTest(self):
-        signals = get_signals()
-        f = open('TestWriteSignals', 'w+')
-        for i in range(len(signals[0])):
-            entry = [str(signals[0][i]), str(signals[1][i]), str(signals[2][i]), str(signals[3][i])]
-            f.write(','.join(entry) + '\n')
-        f.close()
+        signals = get_signals(source_position=[6, 10], frequencies=[5, 10, 15, 20], samples=1024, c=330, start=0, end=1, noise=1)
+        for sig in signals:
+            plt.plot(sig)
+        plt.show()
